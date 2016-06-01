@@ -1,6 +1,6 @@
-var mangoose = require('mangoose');
-var bcrypt = require('bcrypt');
-var Schema = mangoose.Schema;
+var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
+var Schema = mongoose.Schema;
 
 // Create User Schema
 var userSchema = new Schema({
@@ -43,3 +43,9 @@ var userSchema = new Schema({
 
 
 //Compair Passowrd from database
+
+userSchema.methods.comparePassword = function(password) {
+	bcrypt.compair(password, this.password);
+}
+
+module.exports = mongoose.model('User', userSchema);
